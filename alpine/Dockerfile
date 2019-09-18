@@ -36,3 +36,7 @@ RUN apk add --no-cache unzip curl && \
 # Git (needed for NPM install from Git)
 
 RUN apk add --no-cache git
+
+# Python (needed for NPM install Gyp)
+
+RUN apk add --no-cache --virtual .gyp python make g++
