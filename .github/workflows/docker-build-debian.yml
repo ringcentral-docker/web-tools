@@ -1,10 +1,12 @@
-name: Web Tools for RingCentral
+name: Web Tools Debian Version
 
 on:
   push:
     branches:
-    - master
-
+      - master
+    paths:
+      # '*' matches any character except '/'
+      - '12-stretch/*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,14 +18,8 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
       run: |
         echo $PASSWORD | docker login --username $USER_NAME --password-stdin
-    
+
     - name: Build & Push web-tools Apline version
-      run: |
-       docker build --tag ringcentral/web-tools:12-alpine --file 12-alpine/Dockerfile .
-       docker tag ringcentral/web-tools:12-alpine ringcentral/web-tools:alpine
-       docker push ringcentral/web-tools:12-alpine
-       docker push ringcentral/web-tools:alpine
-    - name: Build & Push web-tools Debian version
       run: |
        docker build --tag ringcentral/web-tools:12-stretch --file 12-stretch/Dockerfile .
        docker tag ringcentral/web-tools:12-stretch ringcentral/web-tools:stretch
