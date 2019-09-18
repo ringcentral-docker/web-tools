@@ -32,7 +32,6 @@ RUN chmod +x /usr/local/bin/dumb-init
 ENV DISPLAY=:99
 
 # Java
-
 # RUN apt-get install -yq default-jre && \  # installed on prev step
 RUN java -version
 

@@ -17,7 +17,6 @@ RUN apk update && \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 # Java
-
 RUN apk add --no-cache openjdk8-jre && \
     java -version
 

@@ -3,8 +3,10 @@ name: Web Tools Alpine Version
 on:
   push:
     branches:
-    - master
-
+      - master
+    paths:
+      # '*' matches any character except '/'
+      - '12-alpine/*'
 jobs:
   build:
     runs-on: ubuntu-latest
