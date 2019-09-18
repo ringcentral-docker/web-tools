@@ -2,9 +2,8 @@ name: Web Tools for RingCentral
 
 on:
   push:
-    paths:
-    - '*'    
-    - '!README.md'
+    branches:
+    - master
 
 jobs:
   build:
