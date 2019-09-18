@@ -1,0 +1,34 @@
+name: Web Tools for RingCentral
+
+on:
+  push:
+    paths:
+    - '*'    
+    - '!README.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Docker login
+      env:
+        USER_NAME: ${{ secrets.USER_NAME }}  
+        PASSWORD: ${{ secrets.PASSWORD }}
+      run: |
+        echo $PASSWORD | docker login --username $USER_NAME --password-stdin
+    
+    - name: Build & Push web-tools Apline version
+      run: |
+       docker build --tag ringcentral/web-tools:12-alpine --file 12-alpine/Dockerfile .
+       docker tag ringcentral/web-tools:12-alpine ringcentral/web-tools:alpine
+       docker push ringcentral/web-tools:12-alpine
+       docker push ringcentral/web-tools:alpine
+    - name: Build & Push web-tools Debian version
+      run: |
+       docker build --tag ringcentral/web-tools:12-stretch --file 12-stretch/Dockerfile .
+       docker tag ringcentral/web-tools:12-stretch ringcentral/web-tools:stretch
+       docker tag ringcentral/web-tools:stretch ringcentral/web-tools:latest
+       docker push ringcentral/web-tools:12-stretch
+       docker push ringcentral/web-tools:stretch
+       docker push ringcentral/web-tools:latest
