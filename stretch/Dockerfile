@@ -27,6 +27,11 @@ RUN chmod +x /usr/local/bin/dumb-init
 
 ENV DISPLAY=:99
 
+# Java
+
+# RUN apt-get install -yq default-jre && \  # installed on prev step
+RUN java -version
+
 # Sonar
 
 ADD https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.1.0.1829-linux.zip /opt/sonarscanner/sonar.zip
