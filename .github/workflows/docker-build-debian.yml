@@ -7,6 +7,7 @@ on:
     paths:
       # '*' matches any character except '/'
       - '12-stretch/*'
+      - '.github/workflows/*'
 jobs:
   build:
     runs-on: ubuntu-latest
