@@ -18,7 +18,7 @@ ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils 
   gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps default-jre \
       --no-install-recommends \
 && rm -rf /var/lib/apt/lists/* \
-&& apt-get purge --auto-remove -y curl \
+#&& apt-get purge --auto-remove -y curl \
 && rm -rf /src/*.deb
 
 # It's a good idea to use dumb-init to help prevent zombie chrome processes
@@ -34,10 +34,10 @@ RUN java -version
 
 # Sonar
 
-ADD https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.1.0.1829-linux.zip /opt/sonarscanner/sonar.zip
-WORKDIR /opt/sonarscanner
+WORKDIR /opt
 RUN apt-get install -yq unzip && \
-    unzip sonar.zip && \
+    curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.1.0.1829-linux.zip -o sonar.zip && \
+    unzip -qq sonar.zip && \
     rm sonar.zip && \
-    ln -s /opt/sonarscanner/sonar-scanner-4.1.0.1829-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
+    ln -s /opt/sonar-scanner-4.1.0.1829-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
     sonar-scanner --version
