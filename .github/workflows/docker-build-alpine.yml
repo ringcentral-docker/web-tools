@@ -19,7 +19,7 @@ jobs:
       run: |
         echo $PASSWORD | docker login --username $USER_NAME --password-stdin
     
-    - name: Build & Push web-tools Apline version
+    - name: Build & Push web-tools
       run: |
        docker build --tag ringcentral/web-tools:12-alpine --file 12-alpine/Dockerfile .
        docker tag ringcentral/web-tools:12-alpine ringcentral/web-tools:alpine
