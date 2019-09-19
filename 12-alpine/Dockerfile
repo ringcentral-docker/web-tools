@@ -1,4 +1,4 @@
-FROM ringcentral/node:12.10.0-jdk8u202
+FROM ringcentral/node:12.10.0-jdk13
 
 # Puppeteer
 # https://github.com/adrianchia/docker-node-puppeteer/blob/master/12/alpine/Dockerfile
