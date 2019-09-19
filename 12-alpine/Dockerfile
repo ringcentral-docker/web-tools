@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM ringcentral/node:12.10.0-jdk8u202
 
 # Puppeteer
 # https://github.com/adrianchia/docker-node-puppeteer/blob/master/12/alpine/Dockerfile
@@ -15,10 +15,6 @@ RUN apk update && \
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-
-# Java
-RUN apk add --no-cache openjdk10-jre && \
-    java -version
 
 # Sonar
 # https://community.sonarsource.com/t/installing-sonar-scanner-in-alpine-linux-docker/7010
