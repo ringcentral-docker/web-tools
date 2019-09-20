@@ -22,9 +22,16 @@ jobs:
 
     - name: Build & Push web-tools
       run: |
-       docker build --tag ringcentral/web-tools:12-stretch --file 12-stretch/Dockerfile .
-       docker tag ringcentral/web-tools:12-stretch ringcentral/web-tools:stretch
-       docker tag ringcentral/web-tools:stretch ringcentral/web-tools:latest
-       docker push ringcentral/web-tools:12-stretch
-       docker push ringcentral/web-tools:stretch
-       docker push ringcentral/web-tools:latest
+       cd 12-stretch
+       IMAGE_NAME=ringcentral/web-tools
+       NODE_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile)"
+       NODE_MAJOR_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile | cut -d "." -f 1)"
+       docker build --tag ${IMAGE_NAME} --file Dockerfile .
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:stretch"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-stretch"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+       docker push "${IMAGE_NAME}:stretch"
+       docker push "${IMAGE_NAME}:${NODE_VERSION}-stretch"
+       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
+       docker push "${IMAGE_NAME}:latest"
