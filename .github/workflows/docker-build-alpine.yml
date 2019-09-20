@@ -22,7 +22,14 @@ jobs:
     
     - name: Build & Push web-tools
       run: |
-       docker build --tag ringcentral/web-tools:12-alpine --file 12-alpine/Dockerfile .
-       docker tag ringcentral/web-tools:12-alpine ringcentral/web-tools:alpine
-       docker push ringcentral/web-tools:12-alpine
-       docker push ringcentral/web-tools:alpine
+       cd 12-alpine
+       IMAGE_NAME=ringcentral/web-tools
+       NODE_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile)"
+       NODE_MAJOR_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile | cut -d "." -f 1)"
+       docker build --tag ${IMAGE_NAME} --file Dockerfile .
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:alpine"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-alpine"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
+       docker push "${IMAGE_NAME}:alpine"
+       docker push "${IMAGE_NAME}:${NODE_VERSION}-alpine"
+       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
