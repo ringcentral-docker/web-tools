@@ -1,4 +1,4 @@
-FROM node:12.15.0-stretch
+FROM node:13.8.0-stretch
 
 #https://github.com/wv-gis/mudak-wrm-public/issues/2
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn

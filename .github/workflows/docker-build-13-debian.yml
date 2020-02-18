@@ -1,0 +1,36 @@
+name: Web Tools Node 13 Debian Version
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      # '*' matches any character except '/'
+      - '13-stretch/*'
+      - '.github/workflows/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Docker login
+      env:
+        USER_NAME: ${{ secrets.USER_NAME }}  
+        PASSWORD: ${{ secrets.PASSWORD }}
+      run: |
+        echo $PASSWORD | docker login --username $USER_NAME --password-stdin
+
+    - name: Build & Push web-tools
+      run: |
+       cd 13-stretch
+       IMAGE_NAME=ringcentral/web-tools
+       NODE_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile)"
+       NODE_MAJOR_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile | cut -d "." -f 1)"
+       docker build --tag ${IMAGE_NAME} --file Dockerfile .
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:stretch"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-stretch"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+       docker push "${IMAGE_NAME}:stretch"
+       docker push "${IMAGE_NAME}:${NODE_VERSION}-stretch"
+       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"

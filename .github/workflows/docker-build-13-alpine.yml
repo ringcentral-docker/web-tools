@@ -1,4 +1,4 @@
-name: Web Tools Debian Version
+name: Web Tools Node 13 Alpine Version
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
     paths:
       # '*' matches any character except '/'
-      - '12-stretch/*'
+      - '13-alpine/*'
       - '.github/workflows/*'
 jobs:
   build:
@@ -19,19 +19,17 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
       run: |
         echo $PASSWORD | docker login --username $USER_NAME --password-stdin
-
+    
     - name: Build & Push web-tools
       run: |
-       cd 12-stretch
+       cd 13-alpine
        IMAGE_NAME=ringcentral/web-tools
        NODE_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile)"
        NODE_MAJOR_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile | cut -d "." -f 1)"
        docker build --tag ${IMAGE_NAME} --file Dockerfile .
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:stretch"
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-stretch"
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
-       docker push "${IMAGE_NAME}:stretch"
-       docker push "${IMAGE_NAME}:${NODE_VERSION}-stretch"
-       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
-       docker push "${IMAGE_NAME}:latest"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:alpine"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-alpine"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
+       docker push "${IMAGE_NAME}:alpine"
+       docker push "${IMAGE_NAME}:${NODE_VERSION}-alpine"
+       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
