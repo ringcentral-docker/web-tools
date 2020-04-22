@@ -1,21 +1,24 @@
-FROM ringcentral/node:12.15.0-jdk13
+FROM ringcentral/node:12.18.2-jdk11.0.7
+
+# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
+ENV CHROME_BIN=/usr/bin/chromium-browser \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 # Puppeteer
 # https://github.com/adrianchia/docker-node-puppeteer/blob/master/12/alpine/Dockerfile
 # https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-on-alpine
 
-ENV CHROME_BIN=/usr/bin/chromium-browser
-RUN apk add --no-cache \
-      chromium \
-      nss \
-      freetype \
-      freetype-dev \
-      harfbuzz \
-      ca-certificates \
-      ttf-freefont
-
-# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+RUN apk update \
+      && apk add --no-cache \
+            chromium \
+            nss \
+            freetype \
+            freetype-dev \
+            harfbuzz \
+            ca-certificates \
+            ttf-freefont \
+      && rm -rf /var/cache/apk/*
 
 # Sonar
 # https://community.sonarsource.com/t/installing-sonar-scanner-in-alpine-linux-docker/7010

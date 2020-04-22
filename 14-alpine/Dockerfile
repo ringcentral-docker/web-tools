@@ -1,38 +1,44 @@
-FROM node:13.13-alpine
+FROM node:14.5.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
-RUN apk add --no-cache \
-      openjdk8
+RUN apk update \
+      && apk add --no-cache openjdk11 \
+      && rm -rf /var/cache/apk/*
 
 # Has to be set explictly to find binaries 
 ENV PATH=$PATH:${JAVA_HOME}/bin
 
 # Maven
-RUN apk add --no-cache \
-      maven
+RUN apk update \
+      && apk add --no-cache maven \
+      && rm -rf /var/cache/apk/*
 
 # Gradle
+RUN apk update \
+      && apk add --no-cache gradle \
+      && rm -rf /var/cache/apk/*
 
-RUN apk add --no-cache \
-      gradle
+# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
+ENV CHROME_BIN=/usr/bin/chromium-browser \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 # Puppeteer
 # https://github.com/adrianchia/docker-node-puppeteer/blob/master/12/alpine/Dockerfile
 # https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-on-alpine
 
-ENV CHROME_BIN=/usr/bin/chromium-browser
-RUN apk add --no-cache \
-      chromium \
-      nss \
-      freetype \
-      freetype-dev \
-      harfbuzz \
-      ca-certificates \
-      ttf-freefont
+RUN apk update \
+      && apk add --no-cache \
+            chromium \ 
+            nss \
+            freetype \
+            freetype-dev \
+            harfbuzz \
+            ca-certificates \
+            ttf-freefont \
+      && rm -rf /var/cache/apk/*
 
-# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 # Sonar
 # https://community.sonarsource.com/t/installing-sonar-scanner-in-alpine-linux-docker/7010
