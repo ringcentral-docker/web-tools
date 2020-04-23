@@ -3,7 +3,7 @@ FROM node:13.13-alpine
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
 RUN apk add --no-cache \
-      openjdk8
+      openjdk11
 
 # Has to be set explictly to find binaries 
 ENV PATH=$PATH:${JAVA_HOME}/bin
