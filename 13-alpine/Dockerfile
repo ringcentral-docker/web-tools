@@ -3,7 +3,7 @@ FROM node:13.13-alpine
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
 RUN apk add --no-cache \
-      openjdk11
+      openjdk8
 
 # Has to be set explictly to find binaries 
 ENV PATH=$PATH:${JAVA_HOME}/bin
@@ -11,6 +11,11 @@ ENV PATH=$PATH:${JAVA_HOME}/bin
 # Maven
 RUN apk add --no-cache \
       maven
+
+# Gradle
+
+RUN apk add --no-cache \
+      gradle
 
 # Puppeteer
 # https://github.com/adrianchia/docker-node-puppeteer/blob/master/12/alpine/Dockerfile
