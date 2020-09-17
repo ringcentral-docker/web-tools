@@ -18,6 +18,11 @@ RUN apk update \
 RUN apk update \
       && apk add --no-cache gradle \
       && rm -rf /var/cache/apk/*
+      
+# Mercurial
+RUN apk update \
+      && apk add --no-cache mercurial \
+      && rm -rf /var/cache/apk/*
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV CHROME_BIN=/usr/bin/chromium-browser \
