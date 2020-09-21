@@ -22,6 +22,11 @@ RUN apk update \
 # Mercurial
 RUN apk update \
       && apk add --no-cache mercurial \
+      && rm -rf /var/cache/apk/*  
+      
+# rng-tools for FED Project
+RUN apk update \
+      && apk add --no-cache rng-tools \
       && rm -rf /var/cache/apk/*
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
