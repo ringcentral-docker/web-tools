@@ -1,4 +1,4 @@
-FROM node:14.5.0-alpine
+FROM node:14.17.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
@@ -60,11 +60,11 @@ RUN apk update \
 
 WORKDIR /opt
 RUN apk add --no-cache unzip curl && \
-    curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.1.0.1829-linux.zip -o sonar.zip && \
+    curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
     unzip -qq sonar.zip && \
     rm sonar.zip && \
-    ln -s /opt/sonar-scanner-4.1.0.1829-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
-    sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-4.1.0.1829-linux/bin/sonar-scanner && \
+    ln -s /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
+    sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner && \
     sonar-scanner --version
 
 # Git (needed for NPM install from Git)
