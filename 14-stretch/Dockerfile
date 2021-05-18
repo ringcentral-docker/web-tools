@@ -1,4 +1,4 @@
-FROM node:14.5.0-stretch
+FROM node:14.17.0-stretch
 
 #https://github.com/wv-gis/mudak-wrm-public/issues/2
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
@@ -56,8 +56,8 @@ RUN set -o errexit -o nounset \
 
 WORKDIR /opt
 RUN apt-get install -yq unzip && \
-    curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.1.0.1829-linux.zip -o sonar.zip && \
+    curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
     unzip -qq sonar.zip && \
     rm sonar.zip && \
-    ln -s /opt/sonar-scanner-4.1.0.1829-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
+    ln -s /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
     sonar-scanner --version
