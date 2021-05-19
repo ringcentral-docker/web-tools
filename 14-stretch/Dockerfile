@@ -5,6 +5,11 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV DEBIAN_FRONTEND noninteractive
 ENV GRADLE_VERSION=4.8.1
 ENV GRADLE_HOME=/opt/gradle
+#Maven
+ENV MAVEN_VERSION=3.6.3 \
+    MAVEN_HOME=/usr/share/maven \
+    MAVEN_CONFIG="$USER_HOME_DIR/.m2" \
+    MAVEN_BASE_URL=https://downloads.apache.org/maven/maven-3
 
 # Puppeteer
 # https://github.com/adrianchia/docker-node-puppeteer/blob/master/12/Dockerfile
@@ -37,6 +42,16 @@ ENV DISPLAY=:99
 # Java
 # RUN apt-get install -yq openjdk-8-jdk && \  # installed on prev step
 RUN java -version
+
+
+# Maven
+RUN cd /tmp \
+    && mkdir -p /usr/share/maven \
+    && wget "${MAVEN_BASE_URL}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" 2>/dev/null \
+    && tar -xzf "apache-maven-${MAVEN_VERSION}-bin.tar.gz" -C /usr/share/maven --strip-components=1 \
+    && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
+    && rm -rf /tmp/* \
+    && mvn -version
 
 # Gradle
 RUN set -o errexit -o nounset \
