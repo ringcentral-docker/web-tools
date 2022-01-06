@@ -73,7 +73,7 @@ RUN apk add --no-cache git
 
 # Python (needed for NPM install Gyp)
 
-RUN apk add --no-cache --virtual .gyp python make g++
+RUN apk add --no-cache --virtual .gyp python3 make g++
 
 #==============
 # Show version
@@ -83,4 +83,5 @@ RUN java -version \
     && mvn -version \
     && node --version \
     && npm version \
-    && yarn --version
+    && yarn --version \
+    && python3 --version
