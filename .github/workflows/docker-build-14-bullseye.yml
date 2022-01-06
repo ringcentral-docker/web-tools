@@ -6,8 +6,8 @@ on:
       - master
     paths:
       # '*' matches any character except '/'
-      - '14-stretch/*'
-      - '.github/workflows/*'
+      - '14-bullseye/*'
+      - '.github/workflows/docker-build-14-bullseye.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
 
     - name: Build & Push web-tools
       run: |
-       cd 14-stretch
+       cd 14-bullseye
        IMAGE_NAME=ringcentral/web-tools
        GH_DOCKER_PKG_IMAGE_NAME=docker.pkg.github.com/ringcentral-docker/web-tools/web-tools
 
@@ -34,14 +34,12 @@ jobs:
 
        docker build --tag ${IMAGE_NAME} --file Dockerfile .
 
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-stretch"
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-bullseye"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-bullseye"
+       docker push "${IMAGE_NAME}:${NODE_VERSION}-bullseye"
+       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-bullseye"
 
-       docker push "${IMAGE_NAME}:${NODE_VERSION}-stretch"
-       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
-
-       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-stretch"
-       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
-
-       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-stretch"
-       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-stretch"
+       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-bullseye"
+       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-bullseye"
+       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-bullseye"
+       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-bullseye"

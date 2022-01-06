@@ -1,4 +1,4 @@
-FROM node:14.18.2-stretch
+FROM node:14.18.2-bullseye
 
 #https://github.com/wv-gis/mudak-wrm-public/issues/2
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
@@ -27,10 +27,9 @@ RUN apt-get update && \
     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
     && apt-get update \
     && apt-get install -y google-chrome-stable xvfb fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
-      gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps openjdk-11-jdk \
+      gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps \
           --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
-    #&& apt-get purge --auto-remove -y curl \
     && rm -rf /src/*.deb
 
 # It's a good idea to use dumb-init to help prevent zombie chrome processes
@@ -40,7 +39,7 @@ RUN chmod +x /usr/local/bin/dumb-init
 ENV DISPLAY=:99
 
 # Java
-# RUN apt-get install -yq openjdk-8-jdk && \  # installed on prev step
+RUN apt-get install -yq openjdk-11-jdk
 RUN java -version
 
 
