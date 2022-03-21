@@ -1,4 +1,4 @@
-name: Web Tools Node 16 Debian Version
+name: Web Tools Node 16 OpenJDK 8 Alpine Version
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - master
     paths:
       # '*' matches any character except '/'
-      - '16-bullseye/*'
-      - '.github/workflows/docker-build-16-bullseye.yml'
+      - 'node16-openjdk8-alpine/*'
+      - '.github/workflows/docker-build-node16-openjdk8-alpine.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,21 +25,18 @@ jobs:
 
     - name: Build & Push web-tools
       run: |
-       cd 16-bullseye
+       cd node16-openjdk8-alpine
        IMAGE_NAME=ringcentral/web-tools
        GH_DOCKER_PKG_IMAGE_NAME=docker.pkg.github.com/ringcentral-docker/web-tools/web-tools
 
+       OPENJDK_VERSION="$(awk -F '[=]' '/ENV OPENJDK_VERSION/ {print $2}' Dockerfile)"
        NODE_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile)"
        NODE_MAJOR_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' Dockerfile | cut -d "." -f 1)"
 
        docker build --tag ${IMAGE_NAME} --file Dockerfile .
 
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-bullseye"
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-bullseye"
-       docker push "${IMAGE_NAME}:${NODE_VERSION}-bullseye"
-       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-bullseye"
+       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
+       docker push "${IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
 
-       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-bullseye"
-       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-bullseye"
-       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-bullseye"
-       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-bullseye"
+       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
+       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"

@@ -1,12 +1,13 @@
-FROM node:14.18.2-bullseye
+FROM node:16.13.1-bullseye
 
 #https://github.com/wv-gis/mudak-wrm-public/issues/2
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV DEBIAN_FRONTEND noninteractive
-ENV GRADLE_VERSION=4.8.1
+ENV GRADLE_VERSION=7.3.3
 ENV GRADLE_HOME=/opt/gradle
+ENV OPENJDK_VERSION=11
 #Maven
-ENV MAVEN_VERSION=3.6.3 \
+ENV MAVEN_VERSION=3.8.4 \
     MAVEN_HOME=/usr/share/maven \
     MAVEN_CONFIG="$USER_HOME_DIR/.m2" \
     MAVEN_BASE_URL=https://downloads.apache.org/maven/maven-3
@@ -92,7 +93,7 @@ ENV DISPLAY=:99
 # Java
 RUN apt-get update \
     && apt-get install -yq \
-        openjdk-11-jdk \
+        openjdk-${OPENJDK_VERSION}-jdk \
         --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /src/*.deb
@@ -111,7 +112,7 @@ RUN cd /tmp \
 # Gradle
 RUN set -o errexit -o nounset \
 	&& echo "Downloading Gradle" \
-	&& wget --no-verbose --output-document=gradle.zip "https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
+	&& wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
 	&& echo "Installing Gradle" \
 	&& unzip gradle.zip \
 	&& rm gradle.zip \
