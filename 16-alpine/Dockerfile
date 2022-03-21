@@ -1,4 +1,4 @@
-FROM node:16.14.0-alpine
+FROM node:16.14.2-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
@@ -31,7 +31,7 @@ RUN apk update \
       
 # bash for MAA project
 RUN apk update \
-      && apk add --no-cache bash \
+      && apk add --no-cache bash openssh \
       && rm -rf /var/cache/apk/*
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
