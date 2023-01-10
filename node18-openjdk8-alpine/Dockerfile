@@ -1,4 +1,4 @@
-FROM node:18.12.1-alpine
+FROM node:18.13.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
@@ -62,7 +62,7 @@ RUN apk update \
 
 WORKDIR /opt
 RUN apk add --no-cache unzip curl && \
-    curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
+    curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
     unzip -qq sonar.zip && \
     rm sonar.zip && \
     ln -s /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
@@ -76,6 +76,17 @@ RUN apk add --no-cache git
 # Python (needed for NPM install Gyp)
 
 RUN apk add --no-cache --virtual .gyp python3 make g++
+
+# Checkmarx tools for Java 8
+ENV CX_FLOW_VERSION=1.6.38 SCA_RESOLVER_VERSION=1.15.2
+
+RUN mkdir cx-flow && \
+    curl -sL https://github.com/checkmarx-ltd/cx-flow/releases/download/${CX_FLOW_VERSION}/cx-flow-${CX_FLOW_VERSION}.jar > ./cx-flow/cx-flow.jar
+
+RUN mkdir sca-resolver && \
+    curl -sL "https://sca-downloads.s3.amazonaws.com/cli/${SCA_RESOLVER_VERSION}/ScaResolver-musl64.tar.gz" > ./sca-resolver/ScaResolver.tar.gz && \
+    tar -vxzf ./sca-resolver/ScaResolver.tar.gz -C ./sca-resolver && \
+    rm ./sca-resolver/ScaResolver.tar.gz
 
 #==============
 # Show version
