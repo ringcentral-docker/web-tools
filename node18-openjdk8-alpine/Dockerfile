@@ -1,4 +1,4 @@
-FROM node:18.12.1-alpine
+FROM node:18.13.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
@@ -62,7 +62,7 @@ RUN apk update \
 
 WORKDIR /opt
 RUN apk add --no-cache unzip curl && \
-    curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
+    curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
     unzip -qq sonar.zip && \
     rm sonar.zip && \
     ln -s /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
