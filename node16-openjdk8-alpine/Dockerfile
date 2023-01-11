@@ -2,7 +2,7 @@ FROM node:16.19.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
-ENV OPENJDK_VERSION=8 GRADLE_VERSION=7.6
+ENV OPENJDK_VERSION=8
 
 RUN apk update \
       && apk add --no-cache openjdk${OPENJDK_VERSION} \
@@ -22,6 +22,8 @@ RUN apk update \
 
 # Gradle
 WORKDIR /opt
+
+ENV GRADLE_VERSION=7.6
 
 RUN curl -sL https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip > gradle.zip && \
       unzip gradle.zip && \
