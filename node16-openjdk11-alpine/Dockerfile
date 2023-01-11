@@ -1,15 +1,19 @@
-FROM node:16.17.1-alpine
+FROM node:16.19.0-alpine
 
 # OpenJDK
-ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
-ENV OPENJDK_VERSION=11
+ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
+ENV OPENJDK_VERSION=11 GRADLE_VERSION=7.6
 
 RUN apk update \
       && apk add --no-cache openjdk${OPENJDK_VERSION} \
       && rm -rf /var/cache/apk/*
 
 # Has to be set explictly to find binaries 
-ENV PATH=$PATH:${JAVA_HOME}/bin
+ENV PATH="$PATH:${JAVA_HOME}/bin"
+
+# Required libraries
+RUN apk add --no-cache git unzip curl && \
+      rm -rf /var/cache/apk/*
 
 # Maven
 RUN apk update \
@@ -17,9 +21,14 @@ RUN apk update \
       && rm -rf /var/cache/apk/*
 
 # Gradle
-RUN apk update \
-      && apk add --no-cache gradle \
-      && rm -rf /var/cache/apk/*
+WORKDIR /opt
+
+RUN curl -sL https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip > gradle.zip && \
+      unzip gradle.zip && \
+      rm gradle.zip && \
+      rm -rf /var/cache/apk/*
+
+ENV PATH="$PATH:/opt/gradle-${GRADLE_VERSION}/bin"
       
 # Mercurial
 RUN apk update \
@@ -56,26 +65,30 @@ RUN apk update \
             ttf-freefont \
       && rm -rf /var/cache/apk/*
 
-
 # Sonar
 # https://community.sonarsource.com/t/installing-sonar-scanner-in-alpine-linux-docker/7010
 
-WORKDIR /opt
-RUN apk add --no-cache unzip curl && \
-    curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
+RUN curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
     unzip -qq sonar.zip && \
     rm sonar.zip && \
     ln -s /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
     sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner && \
     sonar-scanner --version
 
-# Git (needed for NPM install from Git)
-
-RUN apk add --no-cache git
-
 # Python (needed for NPM install Gyp)
 
 RUN apk add --no-cache --virtual .gyp python3 make g++
+
+# Checkmarx tools for Java 11
+ENV CX_FLOW_VERSION=1.6.38 SCA_RESOLVER_VERSION=1.15.2
+
+RUN mkdir cx-flow && \
+      curl -sL https://github.com/checkmarx-ltd/cx-flow/releases/download/${CX_FLOW_VERSION}/cx-flow-${CX_FLOW_VERSION}-java11.jar > ./cx-flow/cx-flow.jar
+
+RUN mkdir sca-resolver && \
+      curl -sL "https://sca-downloads.s3.amazonaws.com/cli/${SCA_RESOLVER_VERSION}/ScaResolver-musl64.tar.gz" > ./sca-resolver/ScaResolver.tar.gz && \
+      tar -vxzf ./sca-resolver/ScaResolver.tar.gz -C ./sca-resolver && \
+      rm ./sca-resolver/ScaResolver.tar.gz
 
 #==============
 # Show version
