@@ -82,7 +82,7 @@ RUN curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/son
 RUN apk add --no-cache --virtual .gyp python3 make g++
 
 # Checkmarx tools for Java 11
-ENV CX_FLOW_VERSION=1.6.38 SCA_RESOLVER_VERSION=1.15.2
+ENV CX_FLOW_VERSION=1.6.39 SCA_RESOLVER_VERSION=1.15.6
 
 RUN mkdir cx-flow && \
       curl -sL https://github.com/checkmarx-ltd/cx-flow/releases/download/${CX_FLOW_VERSION}/cx-flow-${CX_FLOW_VERSION}-java11.jar > ./cx-flow/cx-flow.jar
