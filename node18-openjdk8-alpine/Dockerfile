@@ -36,7 +36,11 @@ ENV PATH="$PATH:/opt/gradle-${GRADLE_VERSION}/bin"
 RUN apk update \
       && apk add --no-cache mercurial \
       && rm -rf /var/cache/apk/*  
-      
+
+# pnpm 
+ENV PNPM_VERSION=7.27.0
+RUN corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate
+    
 # rng-tools for FED Project
 RUN apk update \
       && apk add --no-cache rng-tools \
