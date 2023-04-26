@@ -1,1 +1,1 @@
-Node + Puppeteer + Java + SonarScanner
+Node + Puppeteer + Java + SonarScanner + Checkmarx tools (cxflow, sca-resolver)
