@@ -1,4 +1,4 @@
-FROM node:18.16.1-alpine
+FROM node:18.17.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
