@@ -1,8 +1,8 @@
-FROM node:18.18.2-alpine
+FROM node:20.9.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
-ENV OPENJDK_VERSION=11
+ENV OPENJDK_VERSION=8
 
 RUN apk update \
       && apk add --no-cache openjdk${OPENJDK_VERSION} \
@@ -81,11 +81,11 @@ RUN curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/son
 
 RUN apk add --no-cache --virtual .gyp python3 make g++
 
-# Checkmarx tools for Java 11
+# Checkmarx tools for Java 8
 ENV CX_FLOW_VERSION=1.6.41 SCA_RESOLVER_VERSION=2.2.11
 
 RUN mkdir cx-flow && \
-      curl -sL https://github.com/checkmarx-ltd/cx-flow/releases/download/${CX_FLOW_VERSION}/cx-flow-${CX_FLOW_VERSION}-java11.jar > ./cx-flow/cx-flow.jar
+      curl -sL https://github.com/checkmarx-ltd/cx-flow/releases/download/${CX_FLOW_VERSION}/cx-flow-${CX_FLOW_VERSION}.jar > ./cx-flow/cx-flow.jar
 
 RUN mkdir sca-resolver && \
       curl -sL "https://sca-downloads.s3.amazonaws.com/cli/${SCA_RESOLVER_VERSION}/ScaResolver-musl64.tar.gz" > ./sca-resolver/ScaResolver.tar.gz && \

@@ -1,8 +1,8 @@
-FROM node:18.18.2-alpine
+FROM node:20.9.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
-ENV OPENJDK_VERSION=11
+ENV OPENJDK_VERSION=17
 
 RUN apk update \
       && apk add --no-cache openjdk${OPENJDK_VERSION} \
@@ -70,11 +70,11 @@ RUN apk update \
 # Sonar
 # https://community.sonarsource.com/t/installing-sonar-scanner-in-alpine-linux-docker/7010
 
-RUN curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
+RUN curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip -o sonar.zip && \
       unzip -qq sonar.zip && \
       rm sonar.zip && \
-      ln -s /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
-      sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner && \
+      ln -s /opt/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
+      sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner && \
       sonar-scanner --version
 
 # Python (needed for NPM install Gyp)

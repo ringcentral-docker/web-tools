@@ -35,22 +35,8 @@ jobs:
 
        docker build --tag ${IMAGE_NAME} --file Dockerfile .
 
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-alpine"
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
        docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
-       docker push "${IMAGE_NAME}:${NODE_VERSION}-alpine"
-       docker push "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
        docker push "${IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
 
-       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-alpine"
-       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
        docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
-       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-alpine"
-       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
        docker push "${GH_DOCKER_PKG_IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
-
-       docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
-       docker push "${IMAGE_NAME}:latest"
-       
-       docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:latest"
-       docker push "${GH_DOCKER_PKG_IMAGE_NAME}:latest"

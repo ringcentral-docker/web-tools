@@ -1,12 +1,12 @@
-name: Web Tools Node 18 OpenJDK 17 Alpine Version
+name: Web Tools Node 20 OpenJDK 17 Alpine Version
 
 on:
   push:
     branches:
       - master
     paths:
-      - 'node18-openjdk17-alpine/*'
-      - '.github/workflows/docker-build-node18-openjdk17-alpine.yml'
+      - 'node20-openjdk17-alpine/*'
+      - '.github/workflows/docker-build-node20-openjdk17-alpine.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
 
     - name: Build & Push web-tools
       run: |
-       cd node18-openjdk17-alpine
+       cd node20-openjdk17-alpine
        IMAGE_NAME=ringcentral/web-tools
        GH_DOCKER_PKG_IMAGE_NAME=docker.pkg.github.com/ringcentral-docker/web-tools/web-tools
 
