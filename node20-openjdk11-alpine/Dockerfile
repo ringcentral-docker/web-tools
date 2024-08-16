@@ -1,4 +1,4 @@
-FROM node:20.12.1-alpine
+FROM public.ecr.aws/docker/library/node:20.16.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
