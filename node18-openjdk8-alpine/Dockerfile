@@ -12,7 +12,7 @@ RUN apk update \
 ENV PATH="$PATH:${JAVA_HOME}/bin"
 
 # Required libraries
-RUN apk add --no-cache git unzip curl jq && \
+RUN apk add --no-cache git unzip curl jq yq && \
       rm -rf /var/cache/apk/*
 
 # Maven
