@@ -23,9 +23,7 @@ RUN apk update \
 # Gradle
 WORKDIR /opt
 
-# TODO: Update to 8.5 after release
-# ENV GRADLE_VERSION=8.5
-ENV GRADLE_VERSION=7.6
+ENV GRADLE_VERSION=8.5
 
 RUN curl -sL https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip > gradle.zip && \
       unzip gradle.zip && \
