@@ -63,7 +63,7 @@ jobs:
         docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
         docker push "${GH_DOCKER_PKG_IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine"
 
-        if [ "${{ matrix.jdk_version }}" -eq 17 ]; then
+        if [ "${{ matrix.jdk_version }}" -eq 21 ]; then
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_VERSION}-alpine"
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
           docker push "${IMAGE_NAME}:${NODE_VERSION}-alpine"
@@ -74,7 +74,7 @@ jobs:
           docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_VERSION}-alpine"
           docker push "${GH_DOCKER_PKG_IMAGE_NAME}:${NODE_MAJOR_VERSION}-alpine"
 
-          if [ "${{ matrix.node_version }}" -eq 20 ]; then
+          if [ "${{ matrix.node_version }}" -eq 22 ]; then
             docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
             docker push "${IMAGE_NAME}:latest"
             docker tag "${IMAGE_NAME}" "${GH_DOCKER_PKG_IMAGE_NAME}:latest"
@@ -86,7 +86,7 @@ jobs:
       run: |
         IMAGE_NAME=ringcentral/webtests-runner
         GH_DOCKER_PKG_IMAGE_NAME=ghcr.io/ringcentral-docker/webtests-runner/webtests-runner
-        if [ "${{ matrix.node_version }}" -eq 20 ]; then
+        if [ "${{ matrix.node_version }}" -eq 22 ]; then
           NEW_ENTRY="| JDK${{ matrix.jdk_version }} | ${NODE_DIR} | \`${IMAGE_NAME}:${NODE_VERSION}-alpine\` | \`${GH_DOCKER_PKG_IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine\` |"
           echo "${NEW_ENTRY}" > readme_updates_${{ matrix.jdk_version }}.txt
         fi
@@ -116,6 +116,11 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: readme-updates-17
+        path: ./readme-updates
+    - name: Download README Updates
+      uses: actions/download-artifact@v4
+      with:
+        name: readme-updates-21
         path: ./readme-updates
 
     - name: Initialize README
