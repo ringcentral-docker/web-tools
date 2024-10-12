@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        jdk_version: [8, 11, 17]
-        node_version: [18, 20]
+        jdk_version: [8, 11, 17, 21]
+        node_version: [18, 20, 22]
       fail-fast: false
 
     steps:

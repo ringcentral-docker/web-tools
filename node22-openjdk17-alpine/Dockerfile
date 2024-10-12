@@ -1,8 +1,8 @@
-FROM public.ecr.aws/docker/library/node:20.18.0-alpine
+FROM public.ecr.aws/docker/library/node:22.9.0-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
-ENV OPENJDK_VERSION=8
+ENV OPENJDK_VERSION=17
 
 RUN apk update \
       && apk add --no-cache openjdk${OPENJDK_VERSION} \
@@ -23,7 +23,7 @@ RUN apk update \
 # Gradle
 WORKDIR /opt
 
-ENV GRADLE_VERSION=7.6
+ENV GRADLE_VERSION=8.5
 
 RUN curl -sL https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip > gradle.zip && \
       unzip gradle.zip && \
@@ -70,19 +70,19 @@ RUN apk update \
 # Sonar
 # https://community.sonarsource.com/t/installing-sonar-scanner-in-alpine-linux-docker/7010
 
-RUN curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip -o sonar.zip && \
+RUN curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip -o sonar.zip && \
       unzip -qq sonar.zip && \
       rm sonar.zip && \
-      ln -s /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
-      sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner && \
+      ln -s /opt/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
+      sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner && \
       sonar-scanner --version
 
 # Python (needed for NPM install Gyp)
 
 RUN apk add --no-cache --virtual .gyp python3 make g++
 
-# Checkmarx tools for Java 8
-ENV CX_FLOW_VERSION=1.6.46 SCA_RESOLVER_VERSION=2.8.2
+# Checkmarx tools for Java 17+
+ENV CX_FLOW_VERSION=1.7.01 SCA_RESOLVER_VERSION=2.8.2
 
 RUN mkdir cx-flow && \
       curl -sL https://github.com/checkmarx-ltd/cx-flow/releases/download/${CX_FLOW_VERSION}/cx-flow-${CX_FLOW_VERSION}.jar > ./cx-flow/cx-flow.jar
