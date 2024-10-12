@@ -84,8 +84,8 @@ jobs:
         
     - name: Generate README Update
       run: |
-        IMAGE_NAME=ringcentral/webtests-runner
-        GH_DOCKER_PKG_IMAGE_NAME=ghcr.io/ringcentral-docker/webtests-runner/webtests-runner
+        IMAGE_NAME=ringcentral/web-tools
+        GH_DOCKER_PKG_IMAGE_NAME=ghcr.io/ringcentral-docker/web-tools/web-tools
         if [ "${{ matrix.node_version }}" -eq 22 ]; then
           NEW_ENTRY="| JDK${{ matrix.jdk_version }} | ${NODE_DIR} | \`${IMAGE_NAME}:${NODE_VERSION}-alpine\` | \`${GH_DOCKER_PKG_IMAGE_NAME}:node${NODE_MAJOR_VERSION}-openjdk${OPENJDK_VERSION}-alpine\` |"
           echo "${NEW_ENTRY}" > readme_updates_${{ matrix.jdk_version }}.txt
