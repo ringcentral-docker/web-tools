@@ -36,12 +36,12 @@ jobs:
         NODE_MAJOR_VERSION=${{ matrix.node_version }}
         NODE_VERSION="$(awk -F '[=]' '/NODE_${{ matrix.node_version }}_VERSION/ {print $2}' node_version.env)"
         if [[ -f ${JDK_DIR}/Dockerfile ]]; then
-          OPENJDK_VERSION="$(awk -F '[=]' '/ENV OPENJDK_VERSION/ {print $2}' ${NODE_DIR}/Dockerfile)"
-          echo $NODE_VERSION > ${NODE_DIR}/version.txt
-          echo $OPENJDK_VERSION > ${NODE_DIR}/openjdk_version.txt
+          OPENJDK_VERSION="$(awk -F '[=]' '/ENV OPENJDK_VERSION/ {print $2}' ${JDK_DIR}/Dockerfile)"
+          echo $NODE_VERSION > ${JDK_DIR}/version.txt
+          echo $OPENJDK_VERSION > ${JDK_DIR}/openjdk_version.txt
         else
-          NODE_VERSION=$(cat ${NODE_DIR}/version.txt)
-          OPENJDK_VERSION=$(cat ${NODE_DIR}/openjdk_version.txt)
+          NODE_VERSION=$(cat ${JDK_DIR}/version.txt)
+          OPENJDK_VERSION=$(cat ${JDK_DIR}/openjdk_version.txt)
         fi
         echo "JDK_DIR=${JDK_DIR}" >> $GITHUB_ENV
         echo "NODE_VERSION=${NODE_VERSION}" >> $GITHUB_ENV
