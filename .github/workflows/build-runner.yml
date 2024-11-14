@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'openjdk*/*'
+      - 'node_version.env'
       - '.github/workflows/build-runner.yml'
 
 jobs:
