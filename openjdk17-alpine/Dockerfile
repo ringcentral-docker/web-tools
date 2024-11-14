@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/node:20.18.0-alpine
+FROM public.ecr.aws/docker/library/node:$NODE_VERSION-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
@@ -82,7 +82,7 @@ RUN curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/son
 RUN apk add --no-cache --virtual .gyp python3 make g++
 
 # Checkmarx tools for Java 17+
-ENV CX_FLOW_VERSION=1.7.04 SCA_RESOLVER_VERSION=2.11.2
+ENV CX_FLOW_VERSION=1.7.05 SCA_RESOLVER_VERSION=2.11.2
 
 RUN mkdir cx-flow && \
       curl -sL https://github.com/checkmarx-ltd/cx-flow/releases/download/${CX_FLOW_VERSION}/cx-flow-${CX_FLOW_VERSION}.jar > ./cx-flow/cx-flow.jar

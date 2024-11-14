@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'node*-openjdk*/*'
+      - 'openjdk*/*'
       - '.github/workflows/build-runner.yml'
 
 jobs:
@@ -32,10 +32,10 @@ jobs:
     - name: Set Environment Variables
       id: vars
       run: |
-        NODE_DIR=node${{ matrix.node_version }}-openjdk${{ matrix.jdk_version }}-alpine
-        if [[ -f ${NODE_DIR}/Dockerfile ]]; then
-          NODE_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' ${NODE_DIR}/Dockerfile)"
-          NODE_MAJOR_VERSION="$(awk -F '[:-]' '/FROM/ {print $2}' ${NODE_DIR}/Dockerfile | cut -d "." -f 1)"
+        JDK_DIR=openjdk${{ matrix.jdk_version }}-alpine
+        NODE_MAJOR_VERSION=${{ matrix.node_version }}
+        NODE_VERSION="$(awk -F '[=]' '/NODE_${{ matrix.node_version }}_VERSION/ {print $2}' node_version.env)"
+        if [[ -f ${JDK_DIR}/Dockerfile ]]; then
           OPENJDK_VERSION="$(awk -F '[=]' '/ENV OPENJDK_VERSION/ {print $2}' ${NODE_DIR}/Dockerfile)"
           echo $NODE_VERSION > ${NODE_DIR}/version.txt
           echo $OPENJDK_VERSION > ${NODE_DIR}/openjdk_version.txt
@@ -43,7 +43,7 @@ jobs:
           NODE_VERSION=$(cat ${NODE_DIR}/version.txt)
           OPENJDK_VERSION=$(cat ${NODE_DIR}/openjdk_version.txt)
         fi
-        echo "NODE_DIR=${NODE_DIR}" >> $GITHUB_ENV
+        echo "JDK_DIR=${JDK_DIR}" >> $GITHUB_ENV
         echo "NODE_VERSION=${NODE_VERSION}" >> $GITHUB_ENV
         echo "OPENJDK_VERSION=${OPENJDK_VERSION}" >> $GITHUB_ENV
         echo "NODE_MAJOR_VERSION=${NODE_MAJOR_VERSION}" >> $GITHUB_ENV
@@ -51,7 +51,8 @@ jobs:
     - name: Build Docker Image
       run: |
         IMAGE_NAME=ringcentral/web-tools
-        docker build --tag ${IMAGE_NAME} --file ${NODE_DIR}/Dockerfile .
+        sed -i "s/\$NODE_VERSION/$NODE_VERSION/g" ${JDK_DIR}/Dockerfile
+        docker build --tag ${IMAGE_NAME} --file ${JDK_DIR}/Dockerfile .
 
     - name: Tag and Push Docker Images
       run: |
