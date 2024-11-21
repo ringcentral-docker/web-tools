@@ -2,7 +2,7 @@ FROM public.ecr.aws/docker/library/node:$NODE_VERSION-alpine
 
 # OpenJDK
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
-ENV OPENJDK_VERSION=17
+ENV OPENJDK_VERSION=21
 
 RUN apk update \
       && apk add --no-cache openjdk${OPENJDK_VERSION} \
