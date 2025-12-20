@@ -1,19 +1,6 @@
 {
   "versions": [
     {
-      "name": "node18-jdk8",
-      "node_version": "18.20.5",
-      "node_major": "18",
-      "jdk_version": "8",
-      "base_image_tag": "18.20.5-jdk8",
-      "gradle_version": "7.6",
-      "sonar_version": "4.6.2.2472",
-      "cx_flow_version": "1.6.46",
-      "cx_flow_jar": "cx-flow.jar",
-      "sca_resolver_version": "2.12.36",
-      "is_latest": false
-    },
-    {
       "name": "node20-jdk8",
       "node_version": "20.18.0",
       "node_major": "20",
@@ -36,19 +23,6 @@
       "sonar_version": "4.6.2.2472",
       "cx_flow_version": "1.6.46",
       "cx_flow_jar": "cx-flow.jar",
-      "sca_resolver_version": "2.12.36",
-      "is_latest": false
-    },
-    {
-      "name": "node18-jdk11",
-      "node_version": "18.20.5",
-      "node_major": "18",
-      "jdk_version": "11",
-      "base_image_tag": "18.20.5-jdk11",
-      "gradle_version": "7.6",
-      "sonar_version": "4.6.2.2472",
-      "cx_flow_version": "1.6.46",
-      "cx_flow_jar": "cx-flow-java11.jar",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -79,19 +53,6 @@
       "is_latest": false
     },
     {
-      "name": "node18-jdk17",
-      "node_version": "18.20.5",
-      "node_major": "18",
-      "jdk_version": "17",
-      "base_image_tag": "18.20.5-jdk17",
-      "gradle_version": "8.5",
-      "sonar_version": "4.8.0.2856",
-      "cx_flow_version": "1.7.11",
-      "cx_flow_jar": "cx-flow.jar",
-      "sca_resolver_version": "2.12.36",
-      "is_latest": false
-    },
-    {
       "name": "node20-jdk17",
       "node_version": "20.18.0",
       "node_major": "20",
@@ -110,19 +71,6 @@
       "node_major": "22",
       "jdk_version": "17",
       "base_image_tag": "22.11.0-jdk17",
-      "gradle_version": "8.5",
-      "sonar_version": "4.8.0.2856",
-      "cx_flow_version": "1.7.11",
-      "cx_flow_jar": "cx-flow.jar",
-      "sca_resolver_version": "2.12.36",
-      "is_latest": false
-    },
-    {
-      "name": "node18-jdk21",
-      "node_version": "18.20.5",
-      "node_major": "18",
-      "jdk_version": "21",
-      "base_image_tag": "18.20.5-jdk21",
       "gradle_version": "8.5",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.7.11",
