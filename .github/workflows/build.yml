@@ -90,12 +90,6 @@ jobs:
             # Version tag: node22.11.0-jdk21
             TAGS="${TAGS}${REGISTRY}:node${NODE_VERSION}-jdk${JDK_VERSION},"
 
-            # JDK21 gets additional alias tags
-            if [[ "${JDK_VERSION}" == "21" ]]; then
-              TAGS="${TAGS}${REGISTRY}:node${NODE_MAJOR},"
-              TAGS="${TAGS}${REGISTRY}:${NODE_VERSION},"
-            fi
-
             # Latest tag for node22-jdk21
             if [[ "${IS_LATEST}" == "true" ]]; then
               TAGS="${TAGS}${REGISTRY}:latest,"
