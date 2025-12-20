@@ -5,25 +5,11 @@ echo "Installing Sonar Scanner ${SONAR_VERSION}..."
 
 # Detect architecture
 ARCH=$(dpkg --print-architecture)
-
-# Determine version major (e.g., 4.6.2.2472 -> 4)
-VERSION_MAJOR=$(echo "${SONAR_VERSION}" | cut -d. -f1)
-
-# Sonar Scanner 5.x+ uses linux-x64/linux-aarch64, older versions use just "linux"
-if [[ "${VERSION_MAJOR}" -ge 5 ]]; then
-    case "${ARCH}" in
-        amd64) SONAR_ARCH="linux-x64" ;;
-        arm64) SONAR_ARCH="linux-aarch64" ;;
-        *) echo "Unsupported architecture: ${ARCH}" && exit 1 ;;
-    esac
-else
-    # Older versions (4.x) only support x64 with "linux" suffix
-    if [[ "${ARCH}" == "arm64" ]]; then
-        echo "WARNING: Sonar Scanner ${SONAR_VERSION} does not support arm64, skipping installation."
-        exit 0
-    fi
-    SONAR_ARCH="linux"
-fi
+case "${ARCH}" in
+    amd64) SONAR_ARCH="linux-x64" ;;
+    arm64) SONAR_ARCH="linux-aarch64" ;;
+    *) echo "Unsupported architecture: ${ARCH}" && exit 1 ;;
+esac
 
 echo "  Architecture: ${ARCH} -> ${SONAR_ARCH}"
 
