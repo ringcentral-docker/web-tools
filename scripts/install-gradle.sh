@@ -9,4 +9,8 @@ curl -sL "https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bi
     && rm gradle.zip \
     && ln -s /opt/gradle-${GRADLE_VERSION}/bin/gradle /usr/local/bin/gradle
 
+# Verify installation
+echo "=== Verifying Gradle ==="
+gradle --version
+
 echo "Gradle ${GRADLE_VERSION} installed successfully."

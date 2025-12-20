@@ -33,4 +33,11 @@ esac
 curl -sL "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_${YQ_ARCH}" -o /usr/local/bin/yq \
     && chmod +x /usr/local/bin/yq
 
+# Verify installations
+echo "=== Verifying base tools ==="
+git --version
+curl --version | head -1
+jq --version
+yq --version
+python3 --version
 echo "Base tools installed successfully."

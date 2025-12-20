@@ -51,8 +51,9 @@ RUN /tmp/scripts/install-checkmarx.sh ${CX_FLOW_JAR}
 # Cleanup
 RUN rm -rf /tmp/scripts /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Show versions
-RUN java -version \
+# Final version summary
+RUN echo "=== Final Version Summary ===" \
+    && java -version \
     && javac -version \
     && mvn -version \
     && gradle --version \
@@ -60,4 +61,5 @@ RUN java -version \
     && npm version \
     && yarn --version \
     && python3 --version \
-    && sonar-scanner --version || true
+    && git --version \
+    && sonar-scanner --version

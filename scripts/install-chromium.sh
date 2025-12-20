@@ -31,4 +31,8 @@ echo 'export PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium' >> /etc/profile.d/chro
 echo 'export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true' >> /etc/profile.d/chromium.sh
 chmod +x /etc/profile.d/chromium.sh
 
+# Verify installation
+echo "=== Verifying Chromium ==="
+chromium --version || chromium-browser --version
+
 echo "Chromium and Puppeteer dependencies installed successfully."

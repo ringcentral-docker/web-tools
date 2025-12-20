@@ -32,4 +32,9 @@ curl -sL "https://sca-downloads.s3.amazonaws.com/cli/${SCA_RESOLVER_VERSION}/Sca
     && tar -xzf ./sca-resolver/ScaResolver.tar.gz -C ./sca-resolver \
     && rm ./sca-resolver/ScaResolver.tar.gz
 
+# Verify installation
+echo "=== Verifying Checkmarx tools ==="
+ls -la /opt/cx-flow/cx-flow.jar
+ls -la /opt/sca-resolver/
+
 echo "Checkmarx tools installed successfully."

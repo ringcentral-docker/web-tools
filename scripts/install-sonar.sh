@@ -20,4 +20,8 @@ curl -sL "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-
     && ln -s /opt/sonar-scanner-${SONAR_VERSION}-${SONAR_ARCH}/bin/sonar-scanner /usr/local/bin/sonar-scanner \
     && sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-${SONAR_VERSION}-${SONAR_ARCH}/bin/sonar-scanner
 
+# Verify installation
+echo "=== Verifying Sonar Scanner ==="
+sonar-scanner --version
+
 echo "Sonar Scanner ${SONAR_VERSION} installed successfully."
