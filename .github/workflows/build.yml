@@ -1,0 +1,215 @@
+name: Build Web Tools Images
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'Dockerfile'
+      - 'versions/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Specific version to build (e.g., node22-jdk21), or "all" for all versions'
+        required: false
+        default: 'all'
+
+env:
+  DOCKER_HUB_IMAGE: ringcentral/web-tools
+  GHCR_IMAGE: ghcr.io/ringcentral-docker/web-tools
+
+jobs:
+  # =============================================================================
+  # Generate build matrix from versions.json
+  # =============================================================================
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate build matrix
+        id: set-matrix
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.version }}" != "all" ]]; then
+            MATRIX=$(jq -c --arg v "${{ github.event.inputs.version }}" \
+              '{include: [.versions[] | select(.name == $v)]}' versions/versions.json)
+          else
+            MATRIX=$(jq -c '{include: .versions}' versions/versions.json)
+          fi
+          echo "matrix=${MATRIX}" >> $GITHUB_OUTPUT
+
+  # =============================================================================
+  # Build and push Docker images
+  # =============================================================================
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Docker tags
+        id: meta
+        run: |
+          NAME="${{ matrix.name }}"
+          NODE_VERSION="${{ matrix.node_version }}"
+          NODE_MAJOR="${{ matrix.node_major }}"
+          JDK_VERSION="${{ matrix.jdk_version }}"
+          IS_LATEST="${{ matrix.is_latest }}"
+
+          TAGS=""
+          for REGISTRY in "${{ env.DOCKER_HUB_IMAGE }}" "${{ env.GHCR_IMAGE }}"; do
+            # Primary tag: node22-jdk21
+            TAGS="${TAGS}${REGISTRY}:${NAME},"
+            # Version tag: node22.11.0-jdk21
+            TAGS="${TAGS}${REGISTRY}:node${NODE_VERSION}-jdk${JDK_VERSION},"
+
+            # JDK21 gets additional alias tags
+            if [[ "${JDK_VERSION}" == "21" ]]; then
+              TAGS="${TAGS}${REGISTRY}:node${NODE_MAJOR},"
+              TAGS="${TAGS}${REGISTRY}:${NODE_VERSION},"
+            fi
+
+            # Latest tag for node22-jdk21
+            if [[ "${IS_LATEST}" == "true" ]]; then
+              TAGS="${TAGS}${REGISTRY}:latest,"
+            fi
+          done
+
+          echo "tags=${TAGS%,}" >> $GITHUB_OUTPUT
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            BASE_IMAGE_TAG=${{ matrix.base_image_tag }}
+            GRADLE_VERSION=${{ matrix.gradle_version }}
+            SONAR_VERSION=${{ matrix.sonar_version }}
+            CX_FLOW_VERSION=${{ matrix.cx_flow_version }}
+            CX_FLOW_JAR=${{ matrix.cx_flow_jar }}
+            SCA_RESOLVER_VERSION=${{ matrix.sca_resolver_version }}
+          cache-from: type=gha,scope=${{ matrix.name }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.name }}
+
+  # =============================================================================
+  # Update README - Generate directly from versions.json
+  # =============================================================================
+  update-readme:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate README from versions.json
+        run: |
+          cat > README.md << 'HEADER'
+          # Web Tools Docker Images
+
+          Multi-platform Docker images with Node.js, Java, Maven, Gradle, and development tools.
+
+          ## Supported Platforms
+
+          - linux/amd64
+          - linux/arm64
+
+          ## Available Images
+
+          | Name | Node | JDK | Gradle | Docker Hub | GitHub Package |
+          |------|------|-----|--------|------------|----------------|
+          HEADER
+
+          # Generate table rows from versions.json using jq
+          jq -r --arg hub "${{ env.DOCKER_HUB_IMAGE }}" \
+                --arg ghcr "${{ env.GHCR_IMAGE }}" \
+            '.versions[] |
+              "| \(.name) | \(.node_version) | \(.jdk_version) | \(.gradle_version) | `\($hub):\(.name)` | `\($ghcr):\(.name)` |"
+            ' versions/versions.json >> README.md
+
+          cat >> README.md << 'FOOTER'
+
+          ## Included Tools
+
+          - **Node.js** - JavaScript runtime
+          - **Maven** - Java build tool
+          - **Gradle** - Build automation
+          - **Chromium** - Headless browser for Puppeteer
+          - **Sonar Scanner** - Code quality analysis
+          - **Checkmarx** - Security scanning (cx-flow, sca-resolver)
+          - **Git, Mercurial** - Version control
+          - **Python3** - For npm native modules
+
+          ## Usage
+
+          ```bash
+          # Pull from Docker Hub
+          docker pull ringcentral/web-tools:node22-jdk21
+
+          # Pull from GitHub Container Registry
+          docker pull ghcr.io/ringcentral-docker/web-tools:node22-jdk21
+
+          # Run
+          docker run -it ringcentral/web-tools:node22-jdk21 bash
+          ```
+
+          ## Build Locally
+
+          ```bash
+          docker build \
+            --build-arg BASE_IMAGE_TAG=22.11.0-jdk21 \
+            --build-arg GRADLE_VERSION=8.5 \
+            --build-arg SONAR_VERSION=4.8.0.2856 \
+            --build-arg CX_FLOW_VERSION=1.7.11 \
+            --build-arg CX_FLOW_JAR=cx-flow.jar \
+            --build-arg SCA_RESOLVER_VERSION=2.12.36 \
+            -t my-web-tools:node22-jdk21 .
+          ```
+
+          ## License
+
+          MIT License
+          FOOTER
+
+      - name: Commit README
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: update README with Docker image info"
+            git push
+          fi
