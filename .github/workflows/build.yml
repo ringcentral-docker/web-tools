@@ -2,8 +2,12 @@ name: Build Web Tools Images
 
 on:
   push:
-    branches:
-      - master
+    paths:
+      - 'Dockerfile'
+      - 'versions/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+  pull_request:
     paths:
       - 'Dockerfile'
       - 'versions/**'
@@ -62,12 +66,14 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: Login to GitHub Container Registry
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -104,7 +110,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' && github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           build-args: |
             BASE_IMAGE_TAG=${{ matrix.base_image_tag }}
@@ -117,11 +123,12 @@ jobs:
           cache-to: type=gha,mode=max,scope=${{ matrix.name }}
 
   # =============================================================================
-  # Update README - Generate directly from versions.json
+  # Update README - Generate directly from versions.json (master only)
   # =============================================================================
   update-readme:
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
     permissions:
       contents: write
     steps:
