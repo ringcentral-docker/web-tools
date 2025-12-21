@@ -62,4 +62,5 @@ RUN echo "=== Final Version Summary ===" \
     && yarn --version \
     && python3 --version \
     && git --version \
-    && sonar-scanner --version
+    && (command -v chromium && chromium --version --no-sandbox || echo "chromium: not installed") \
+    && (command -v sonar-scanner && sonar-scanner --version || echo "sonar-scanner: not installed")
