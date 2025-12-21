@@ -3,10 +3,11 @@ set -e
 
 echo "Installing Chromium and Puppeteer dependencies..."
 
-# Install Chromium and dependencies for Puppeteer
-# Note: Package names vary between Ubuntu versions
+# Detect architecture
+ARCH=$(dpkg --print-architecture)
+
+# Install common dependencies for Puppeteer
 apt-get update && apt-get install -y --no-install-recommends \
-    chromium-browser \
     fonts-liberation \
     fonts-dejavu-core \
     libgbm1 \
@@ -23,23 +24,49 @@ apt-get update && apt-get install -y --no-install-recommends \
     libpango-1.0-0 \
     libcairo2 \
     libasound2t64 \
+    libxshmfence1 \
+    libglu1-mesa \
     && rm -rf /var/lib/apt/lists/*
 
-# Find chromium binary path
-CHROMIUM_BIN=$(which chromium-browser || which chromium || echo "/usr/bin/chromium-browser")
+if [[ "${ARCH}" == "amd64" ]]; then
+    echo "Downloading Chromium from official snapshots..."
+
+    # Get latest version
+    CHROMIUM_VERSION=$(curl -s "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2FLAST_CHANGE?alt=media")
+    echo "  Latest version: ${CHROMIUM_VERSION}"
+
+    # Download and extract
+    cd /opt
+    curl -sL "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F${CHROMIUM_VERSION}%2Fchrome-linux.zip?alt=media" -o chromium.zip
+    unzip -q chromium.zip
+    rm chromium.zip
+
+    # Create symlink
+    ln -s /opt/chrome-linux/chrome /usr/local/bin/chromium
+
+    CHROMIUM_BIN="/usr/local/bin/chromium"
+else
+    echo "WARNING: Chromium official builds not available for ${ARCH}, skipping..."
+    echo "  Puppeteer will need to download its own Chromium or use a custom executable."
+
+    # Set empty path - Puppeteer will handle this
+    CHROMIUM_BIN=""
+fi
 
 # Set Puppeteer environment variables
-echo "export CHROME_BIN=${CHROMIUM_BIN}" >> /etc/profile.d/chromium.sh
-echo "export PUPPETEER_EXECUTABLE_PATH=${CHROMIUM_BIN}" >> /etc/profile.d/chromium.sh
+if [[ -n "${CHROMIUM_BIN}" ]]; then
+    echo "export CHROME_BIN=${CHROMIUM_BIN}" >> /etc/profile.d/chromium.sh
+    echo "export PUPPETEER_EXECUTABLE_PATH=${CHROMIUM_BIN}" >> /etc/profile.d/chromium.sh
+fi
 echo 'export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true' >> /etc/profile.d/chromium.sh
 chmod +x /etc/profile.d/chromium.sh
 
-# Also set in environment for current build
-export CHROME_BIN=${CHROMIUM_BIN}
-export PUPPETEER_EXECUTABLE_PATH=${CHROMIUM_BIN}
-
 # Verify installation
 echo "=== Verifying Chromium ==="
-${CHROMIUM_BIN} --version
+if [[ -n "${CHROMIUM_BIN}" && -x "${CHROMIUM_BIN}" ]]; then
+    ${CHROMIUM_BIN} --version --no-sandbox
+else
+    echo "Chromium not installed on this architecture (${ARCH})"
+fi
 
-echo "Chromium and Puppeteer dependencies installed successfully."
+echo "Chromium installation completed."
