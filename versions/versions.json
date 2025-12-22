@@ -2,10 +2,10 @@
   "versions": [
     {
       "name": "node20-jdk8",
-      "node_version": "20.18.0",
+      "node_version": "20.19.6",
       "node_major": "20",
       "jdk_version": "8",
-      "base_image_tag": "20.18.0-jdk8",
+      "base_image_tag": "20.19.6-jdk8",
       "gradle_version": "7.6",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.6.46",
@@ -27,11 +27,24 @@
       "is_latest": false
     },
     {
+      "name": "node24-jdk8",
+      "node_version": "24.12.0",
+      "node_major": "24",
+      "jdk_version": "8",
+      "base_image_tag": "24.12.0-jdk8",
+      "gradle_version": "7.6",
+      "sonar_version": "4.8.0.2856",
+      "cx_flow_version": "1.6.46",
+      "cx_flow_jar": "cx-flow.jar",
+      "sca_resolver_version": "2.12.36",
+      "is_latest": false
+    },
+    {
       "name": "node20-jdk11",
-      "node_version": "20.18.0",
+      "node_version": "20.19.6",
       "node_major": "20",
       "jdk_version": "11",
-      "base_image_tag": "20.18.0-jdk11",
+      "base_image_tag": "20.19.6-jdk11",
       "gradle_version": "7.6",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.6.46",
@@ -53,11 +66,24 @@
       "is_latest": false
     },
     {
+      "name": "node24-jdk11",
+      "node_version": "24.12.0",
+      "node_major": "24",
+      "jdk_version": "11",
+      "base_image_tag": "24.12.0-jdk11",
+      "gradle_version": "7.6",
+      "sonar_version": "4.8.0.2856",
+      "cx_flow_version": "1.6.46",
+      "cx_flow_jar": "cx-flow-java11.jar",
+      "sca_resolver_version": "2.12.36",
+      "is_latest": false
+    },
+    {
       "name": "node20-jdk17",
-      "node_version": "20.18.0",
+      "node_version": "20.19.6",
       "node_major": "20",
       "jdk_version": "17",
-      "base_image_tag": "20.18.0-jdk17",
+      "base_image_tag": "20.19.6-jdk17",
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "cx_flow_version": "1.7.11",
@@ -79,11 +105,24 @@
       "is_latest": false
     },
     {
+      "name": "node24-jdk17",
+      "node_version": "24.12.0",
+      "node_major": "24",
+      "jdk_version": "17",
+      "base_image_tag": "24.12.0-jdk17",
+      "gradle_version": "8.5",
+      "sonar_version": "6.2.1.4610",
+      "cx_flow_version": "1.7.11",
+      "cx_flow_jar": "cx-flow.jar",
+      "sca_resolver_version": "2.12.36",
+      "is_latest": false
+    },
+    {
       "name": "node20-jdk21",
-      "node_version": "20.18.0",
+      "node_version": "20.19.6",
       "node_major": "20",
       "jdk_version": "21",
-      "base_image_tag": "20.18.0-jdk21",
+      "base_image_tag": "20.19.6-jdk21",
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "cx_flow_version": "1.7.11",
@@ -103,6 +142,19 @@
       "cx_flow_jar": "cx-flow.jar",
       "sca_resolver_version": "2.12.36",
       "is_latest": true
+    },
+    {
+      "name": "node24-jdk21",
+      "node_version": "24.12.0",
+      "node_major": "24",
+      "jdk_version": "21",
+      "base_image_tag": "24.12.0-jdk21",
+      "gradle_version": "8.5",
+      "sonar_version": "6.2.1.4610",
+      "cx_flow_version": "1.7.11",
+      "cx_flow_jar": "cx-flow.jar",
+      "sca_resolver_version": "2.12.36",
+      "is_latest": false
     }
   ]
 }
