@@ -12,16 +12,16 @@ Multi-platform Docker images with Node.js, Java, Maven, Gradle, and development 
 | Name | Node | JDK | Gradle | Docker Hub | GitHub Package |
 |------|------|-----|--------|------------|----------------|
 | node20-jdk8 | 20.19.6 | 8 | 7.6 | `ringcentral/web-tools:node20-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk8` |
-| node22-jdk8 | 22.11.0 | 8 | 7.6 | `ringcentral/web-tools:node22-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk8` |
+| node22-jdk8 | 22.21.1 | 8 | 7.6 | `ringcentral/web-tools:node22-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk8` |
 | node24-jdk8 | 24.12.0 | 8 | 7.6 | `ringcentral/web-tools:node24-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk8` |
 | node20-jdk11 | 20.19.6 | 11 | 7.6 | `ringcentral/web-tools:node20-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk11` |
-| node22-jdk11 | 22.11.0 | 11 | 7.6 | `ringcentral/web-tools:node22-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk11` |
+| node22-jdk11 | 22.21.1 | 11 | 7.6 | `ringcentral/web-tools:node22-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk11` |
 | node24-jdk11 | 24.12.0 | 11 | 7.6 | `ringcentral/web-tools:node24-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk11` |
 | node20-jdk17 | 20.19.6 | 17 | 8.5 | `ringcentral/web-tools:node20-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk17` |
-| node22-jdk17 | 22.11.0 | 17 | 8.5 | `ringcentral/web-tools:node22-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk17` |
+| node22-jdk17 | 22.21.1 | 17 | 8.5 | `ringcentral/web-tools:node22-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk17` |
 | node24-jdk17 | 24.12.0 | 17 | 8.5 | `ringcentral/web-tools:node24-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk17` |
 | node20-jdk21 | 20.19.6 | 21 | 8.5 | `ringcentral/web-tools:node20-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk21` |
-| node22-jdk21 | 22.11.0 | 21 | 8.5 | `ringcentral/web-tools:node22-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk21` |
+| node22-jdk21 | 22.21.1 | 21 | 8.5 | `ringcentral/web-tools:node22-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk21` |
 | node24-jdk21 | 24.12.0 | 21 | 8.5 | `ringcentral/web-tools:node24-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk21` |
 
 ## Included Tools
