@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-CX_FLOW_JAR=${1:-cx-flow.jar}
+CX_FLOW_JAR=${1:-cx-flow-$CX_FLOW_VERSION.jar}
 
 echo "Installing Checkmarx tools..."
 echo "  CX_FLOW_VERSION: ${CX_FLOW_VERSION}"
@@ -12,7 +12,7 @@ echo "  SCA_RESOLVER_VERSION: ${SCA_RESOLVER_VERSION}"
 ARCH=$(dpkg --print-architecture)
 case "${ARCH}" in
     amd64) SCA_ARCH="linux64" ;;
-    arm64) SCA_ARCH="linux-arm64" ;;
+    arm64) SCA_ARCH="macos64" ;;
     *) echo "Unsupported architecture: ${ARCH}" && exit 1 ;;
 esac
 

@@ -9,7 +9,7 @@
       "gradle_version": "7.6",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.6.46",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -22,7 +22,7 @@
       "gradle_version": "7.6",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.6.46",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -35,7 +35,7 @@
       "gradle_version": "7.6",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.6.46",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -48,7 +48,7 @@
       "gradle_version": "7.6",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.6.46",
-      "cx_flow_jar": "cx-flow-java11.jar",
+      "cx_flow_jar": "cx-flow-1.6.46-java11.jar",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -61,7 +61,7 @@
       "gradle_version": "7.6",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.6.46",
-      "cx_flow_jar": "cx-flow-java11.jar",
+      "cx_flow_jar": "cx-flow-1.6.46-java11.jar",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -74,7 +74,7 @@
       "gradle_version": "7.6",
       "sonar_version": "4.8.0.2856",
       "cx_flow_version": "1.6.46",
-      "cx_flow_jar": "cx-flow-java11.jar",
+      "cx_flow_jar": "cx-flow-1.6.46-java11.jar",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -87,7 +87,7 @@
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "cx_flow_version": "1.7.11",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -100,7 +100,7 @@
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "cx_flow_version": "1.7.11",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -113,7 +113,7 @@
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "cx_flow_version": "1.7.11",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -126,7 +126,7 @@
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "cx_flow_version": "1.7.11",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     },
@@ -139,7 +139,7 @@
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "cx_flow_version": "1.7.11",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": true
     },
@@ -152,7 +152,7 @@
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "cx_flow_version": "1.7.11",
-      "cx_flow_jar": "cx-flow.jar",
+      "cx_flow_jar": "",
       "sca_resolver_version": "2.12.36",
       "is_latest": false
     }
