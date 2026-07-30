@@ -122,9 +122,6 @@ jobs:
             BASE_IMAGE_TAG=${{ matrix.base_image_tag }}
             GRADLE_VERSION=${{ matrix.gradle_version }}
             SONAR_VERSION=${{ matrix.sonar_version }}
-            CX_FLOW_VERSION=${{ matrix.cx_flow_version }}
-            CX_FLOW_JAR=${{ matrix.cx_flow_jar }}
-            SCA_RESOLVER_VERSION=${{ matrix.sca_resolver_version }}
           cache-from: type=gha,scope=${{ matrix.name }}
           cache-to: type=gha,mode=max,scope=${{ matrix.name }}
 
@@ -189,7 +186,6 @@ jobs:
           - **Gradle** - Build automation
           - **Chromium** - Headless browser for Puppeteer
           - **Sonar Scanner** - Code quality analysis
-          - **Checkmarx** - Security scanning (cx-flow, sca-resolver)
           - **Git, Mercurial** - Version control
           - **Python3** - For npm native modules
 
@@ -213,9 +209,6 @@ jobs:
             --build-arg BASE_IMAGE_TAG=22.11.0-jdk21 \
             --build-arg GRADLE_VERSION=8.5 \
             --build-arg SONAR_VERSION=4.8.0.2856 \
-            --build-arg CX_FLOW_VERSION=1.7.11 \
-            --build-arg CX_FLOW_JAR=cx-flow.jar \
-            --build-arg SCA_RESOLVER_VERSION=2.12.36 \
             -t my-web-tools:node22-jdk21 .
           ```
 
