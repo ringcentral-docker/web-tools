@@ -23,6 +23,9 @@ Multi-platform Docker images with Node.js, Java, Maven, Gradle, and development 
 | node20-jdk21 | 20.19.6 | 21 | 8.5 | `ringcentral/web-tools:node20-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk21` |
 | node22-jdk21 | 22.21.1 | 21 | 8.5 | `ringcentral/web-tools:node22-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk21` |
 | node24-jdk21 | 24.12.0 | 21 | 8.5 | `ringcentral/web-tools:node24-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk21` |
+| node20-jdk25 | 20.19.6 | 25 | 9.7.1 | `ringcentral/web-tools:node20-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk25` |
+| node22-jdk25 | 22.21.1 | 25 | 9.7.1 | `ringcentral/web-tools:node22-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk25` |
+| node24-jdk25 | 24.12.0 | 25 | 9.7.1 | `ringcentral/web-tools:node24-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk25` |
 
 ## Included Tools
 
