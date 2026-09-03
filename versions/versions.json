@@ -108,7 +108,7 @@
       "base_image_tag": "22.21.1-jdk21",
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
-      "is_latest": true
+      "is_latest": false
     },
     {
       "name": "node24-jdk21",
@@ -119,6 +119,36 @@
       "gradle_version": "8.5",
       "sonar_version": "6.2.1.4610",
       "is_latest": false
+    },
+    {
+      "name": "node20-jdk25",
+      "node_version": "20.19.6",
+      "node_major": "20",
+      "jdk_version": "25",
+      "base_image_tag": "20.19.6-jdk25",
+      "gradle_version": "9.7.1",
+      "sonar_version": "6.2.1.4610",
+      "is_latest": false
+    },
+    {
+      "name": "node22-jdk25",
+      "node_version": "22.21.1",
+      "node_major": "22",
+      "jdk_version": "25",
+      "base_image_tag": "22.21.1-jdk25",
+      "gradle_version": "9.7.1",
+      "sonar_version": "6.2.1.4610",
+      "is_latest": false
+    },
+    {
+      "name": "node24-jdk25",
+      "node_version": "24.12.0",
+      "node_major": "24",
+      "jdk_version": "25",
+      "base_image_tag": "24.12.0-jdk25",
+      "gradle_version": "9.7.1",
+      "sonar_version": "6.2.1.4610",
+      "is_latest": true
     }
   ]
 }
