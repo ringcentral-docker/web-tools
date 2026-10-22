@@ -98,7 +98,7 @@ jobs:
           for REGISTRY in "${{ env.DOCKER_HUB_IMAGE }}" "${{ env.GHCR_IMAGE }}"; do
             # Primary tag: node22-jdk21
             TAGS="${TAGS}${REGISTRY}:${NAME},"
-            # Version tag: node22.11.0-jdk21
+            # Version tag: node22.23.4-jdk21
             TAGS="${TAGS}${REGISTRY}:node${NODE_VERSION}-jdk${JDK_VERSION},"
 
             # Latest tag for node22-jdk21
@@ -206,7 +206,7 @@ jobs:
 
           ```bash
           docker build \
-            --build-arg BASE_IMAGE_TAG=22.11.0-jdk21 \
+            --build-arg BASE_IMAGE_TAG=22.23.4-jdk21 \
             --build-arg GRADLE_VERSION=8.5 \
             --build-arg SONAR_VERSION=4.8.0.2856 \
             -t my-web-tools:node22-jdk21 .
