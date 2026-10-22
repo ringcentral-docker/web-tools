@@ -11,21 +11,21 @@ Multi-platform Docker images with Node.js, Java, Maven, Gradle, and development 
 
 | Name | Node | JDK | Gradle | Docker Hub | GitHub Package |
 |------|------|-----|--------|------------|----------------|
-| node20-jdk8 | 20.19.6 | 8 | 7.6 | `ringcentral/web-tools:node20-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk8` |
-| node22-jdk8 | 22.21.1 | 8 | 7.6 | `ringcentral/web-tools:node22-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk8` |
-| node24-jdk8 | 24.12.0 | 8 | 7.6 | `ringcentral/web-tools:node24-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk8` |
-| node20-jdk11 | 20.19.6 | 11 | 7.6 | `ringcentral/web-tools:node20-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk11` |
-| node22-jdk11 | 22.21.1 | 11 | 7.6 | `ringcentral/web-tools:node22-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk11` |
-| node24-jdk11 | 24.12.0 | 11 | 7.6 | `ringcentral/web-tools:node24-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk11` |
-| node20-jdk17 | 20.19.6 | 17 | 8.5 | `ringcentral/web-tools:node20-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk17` |
-| node22-jdk17 | 22.21.1 | 17 | 8.5 | `ringcentral/web-tools:node22-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk17` |
-| node24-jdk17 | 24.12.0 | 17 | 8.5 | `ringcentral/web-tools:node24-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk17` |
-| node20-jdk21 | 20.19.6 | 21 | 8.5 | `ringcentral/web-tools:node20-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk21` |
-| node22-jdk21 | 22.21.1 | 21 | 8.5 | `ringcentral/web-tools:node22-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk21` |
-| node24-jdk21 | 24.12.0 | 21 | 8.5 | `ringcentral/web-tools:node24-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk21` |
-| node20-jdk25 | 20.19.6 | 25 | 9.7.1 | `ringcentral/web-tools:node20-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node20-jdk25` |
-| node22-jdk25 | 22.21.1 | 25 | 9.7.1 | `ringcentral/web-tools:node22-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk25` |
-| node24-jdk25 | 24.12.0 | 25 | 9.7.1 | `ringcentral/web-tools:node24-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk25` |
+| node22-jdk8 | 22.23.4 | 8 | 7.6 | `ringcentral/web-tools:node22-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk8` |
+| node24-jdk8 | 24.22.1 | 8 | 7.6 | `ringcentral/web-tools:node24-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk8` |
+| node26-jdk8 | 26.12.1 | 8 | 7.6 | `ringcentral/web-tools:node26-jdk8` | `ghcr.io/ringcentral-docker/web-tools:node26-jdk8` |
+| node22-jdk11 | 22.23.4 | 11 | 7.6 | `ringcentral/web-tools:node22-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk11` |
+| node24-jdk11 | 24.22.1 | 11 | 7.6 | `ringcentral/web-tools:node24-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk11` |
+| node26-jdk11 | 26.12.1 | 11 | 7.6 | `ringcentral/web-tools:node26-jdk11` | `ghcr.io/ringcentral-docker/web-tools:node26-jdk11` |
+| node22-jdk17 | 22.23.4 | 17 | 8.5 | `ringcentral/web-tools:node22-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk17` |
+| node24-jdk17 | 24.22.1 | 17 | 8.5 | `ringcentral/web-tools:node24-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk17` |
+| node26-jdk17 | 26.12.1 | 17 | 8.5 | `ringcentral/web-tools:node26-jdk17` | `ghcr.io/ringcentral-docker/web-tools:node26-jdk17` |
+| node22-jdk21 | 22.23.4 | 21 | 8.5 | `ringcentral/web-tools:node22-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk21` |
+| node24-jdk21 | 24.22.1 | 21 | 8.5 | `ringcentral/web-tools:node24-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk21` |
+| node26-jdk21 | 26.12.1 | 21 | 8.5 | `ringcentral/web-tools:node26-jdk21` | `ghcr.io/ringcentral-docker/web-tools:node26-jdk21` |
+| node22-jdk25 | 22.23.4 | 25 | 9.7.1 | `ringcentral/web-tools:node22-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node22-jdk25` |
+| node24-jdk25 | 24.22.1 | 25 | 9.7.1 | `ringcentral/web-tools:node24-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node24-jdk25` |
+| node26-jdk25 | 26.12.1 | 25 | 9.7.1 | `ringcentral/web-tools:node26-jdk25` | `ghcr.io/ringcentral-docker/web-tools:node26-jdk25` |
 
 ## Included Tools
 
@@ -54,7 +54,7 @@ docker run -it ringcentral/web-tools:node22-jdk21 bash
 
 ```bash
 docker build \
-  --build-arg BASE_IMAGE_TAG=22.11.0-jdk21 \
+  --build-arg BASE_IMAGE_TAG=22.23.4-jdk21 \
   --build-arg GRADLE_VERSION=8.5 \
   --build-arg SONAR_VERSION=4.8.0.2856 \
   -t my-web-tools:node22-jdk21 .

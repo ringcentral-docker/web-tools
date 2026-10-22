@@ -2,12 +2,12 @@
 #
 # Build example:
 #   docker build \
-#     --build-arg BASE_IMAGE_TAG=22.11.0-jdk21 \
+#     --build-arg BASE_IMAGE_TAG=22.23.4-jdk21 \
 #     --build-arg GRADLE_VERSION=8.5 \
 #     --build-arg SONAR_VERSION=4.8.0.2856 \
 #     -t ringcentral/web-tools:node22-jdk21 .
 
-ARG BASE_IMAGE_TAG=22.11.0-jdk21
+ARG BASE_IMAGE_TAG=22.23.4-jdk21
 
 FROM ghcr.io/ringcentral-docker/node:${BASE_IMAGE_TAG}
 
