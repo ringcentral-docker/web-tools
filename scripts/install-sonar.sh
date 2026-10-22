@@ -35,6 +35,9 @@ curl -sL "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-
     && ln -s /opt/sonar-scanner-${SONAR_VERSION}-${SONAR_ARCH}/bin/sonar-scanner /usr/local/bin/sonar-scanner \
     && sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /opt/sonar-scanner-${SONAR_VERSION}-${SONAR_ARCH}/bin/sonar-scanner
 
+# The scanner uses the inherited JDK; do not retain its unpatched bundled JRE.
+rm -rf "/opt/sonar-scanner-${SONAR_VERSION}-${SONAR_ARCH}/jre"
+
 # Verify installation
 echo "=== Verifying Sonar Scanner ==="
 sonar-scanner --version
